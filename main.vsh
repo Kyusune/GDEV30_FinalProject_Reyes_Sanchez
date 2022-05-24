@@ -7,20 +7,20 @@ layout(location = 3) in vec3 vertexNormal;
 
 
 uniform mat4 mvp;
-uniform mat3 norm;
+uniform mat3 normalM;
 uniform mat4 model;
+uniform mat4 camera;
 
 out vec2 outUV;
 out vec3 outColor;
-out vec3 outNormal;
-out vec3 outPosition;
+//out vec3 outNormal;
+//out vec3 outPosition;
 
 void main()
 {
 	gl_Position = mvp * vec4(vertexPosition, 1.0);
 	outUV = vertexUV;
 	outColor = vertexColor;
-	//outNormal = normalize(norm * vertexNormal);
-	outNormal = norm * vertexNormal;
-	outPosition = vec3(model * vec4(vertexPosition, 1.0));
+	//outNormal = normalize(normalM * vertexNormal);
+	//outPosition = vec3(model * vec4(vertexPosition, 1.0));
 }
