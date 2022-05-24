@@ -78,10 +78,6 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-glm::vec3 ambient = glm::vec3(0.0f, 0.0f, 1.0f);
-glm::vec3 diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
-glm::vec3 specular = glm::vec3(0.0f, 0.0f, 1.0f);
-
 
 /**
  * @brief Main function
@@ -460,13 +456,6 @@ int main()
 		glm::mat4 PerspectiveProj = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
 		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
-		GLint texUniformLocation = glGetUniformLocation(program, "tex");
-		GLint normalUniformLocation = glGetUniformLocation(program, "norm");
-		GLint modelUniformLocation = glGetUniformLocation(program, "model");
-		GLint lightUniformLocation = glGetUniformLocation(program, "lightPos");
-		GLint ambientUniformLocation = glGetUniformLocation(program, "ambient");
-		GLint diffuseUniformLocation = glGetUniformLocation(program, "diffuse");
-		GLint specularUniformLocation = glGetUniformLocation(program, "specular");
 
 
 		//Left Torii Base
@@ -484,6 +473,7 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
+		GLint texUniformLocation = glGetUniformLocation(program, "tex2");
 		glUniform1i(texUniformLocation, 0);
 
 		// Draw the vertices
@@ -514,7 +504,8 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
-		glUniform1i(texUniformLocation, 0);
+		GLint texUniformLocation2 = glGetUniformLocation(program, "tex");
+		glUniform1i(texUniformLocation2, 0);
 
 		// Draw the the vertices
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
