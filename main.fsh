@@ -13,6 +13,7 @@ uniform vec3 diffuse;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
 uniform vec3 specular;
+uniform vec3 specComp;
 
 void main()
 {
@@ -27,7 +28,7 @@ void main()
 	vec3 viewDir = normalize(cameraPos - outPosition);
 	vec3 reflectDir = reflect(-lightDir, norm);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 16);
-	vec3 specularFinal = specular * spec * vec3(texture(tex, outUV));
+	vec3 specularFinal = specular * spec * specComp;
 
 	// Ambient
 	vec3 ambientFinal = ambient * vec3(texture(tex, outUV));
