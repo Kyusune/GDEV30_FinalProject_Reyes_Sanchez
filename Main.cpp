@@ -64,7 +64,7 @@ struct Vertex
 };
 
 //Global Variable Declarations for Rotation and Lighting
-glm::vec3 cameraPos = glm::vec3(0.0f, 15.0f, 10.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 15.0f, 30.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 10.0f, 0.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -462,6 +462,10 @@ int main()
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
+
+		lightPos.x = 0;
+		lightPos.y = sin(glfwGetTime()) * 15.0f;
+		lightPos.z = cos(glfwGetTime()) * 15.0f;
 
 		processInput(window);
 
