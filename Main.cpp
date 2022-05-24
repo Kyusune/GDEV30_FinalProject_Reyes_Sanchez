@@ -80,7 +80,8 @@ float lastFrame = 0.0f;
 
 glm::vec3 ambient = glm::vec3(0.1f, 0.4f, 0.1f);
 glm::vec3 diffuse = glm::vec3(0.9f, 0.9f, 0.9f);
-glm::vec3 lightPos = glm::vec3(10.0f, 0.0f, 15.0f);
+glm::vec3 specular = glm::vec3(0.2f, 0.1f, 0.2f);
+glm::vec3 lightPos = glm::vec3(0.0f, 10.0f, 0.0f);
 
 
 /**
@@ -463,12 +464,16 @@ int main()
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		GLint ambientUniformLocation = glGetUniformLocation(program, "ambient");
 		GLint diffuseUniformLocation = glGetUniformLocation(program, "diffuse");
+		GLint specularUniformLocation = glGetUniformLocation(program, "specular");
 		GLint lightUniformLocation = glGetUniformLocation(program, "lightPos");
 		GLint modelUniformLocation = glGetUniformLocation(program, "model");
 		GLint normalUniformLocation = glGetUniformLocation(program, "norm");
+		GLint viewUniformLocation = glGetUniformLocation(program, "cameraPos");
 		glUniform3f(lightUniformLocation, lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(ambientUniformLocation, ambient.x, ambient.y, ambient.z);
 		glUniform3f(diffuseUniformLocation, diffuse.x, diffuse.y, diffuse.z);
+		glUniform3f(specularUniformLocation, specular.x, specular.y, specular.z);
+		glUniform3f(viewUniformLocation, cameraPos.x, cameraPos.y, cameraPos.z);
 		
 
 		//Left Torii Base
