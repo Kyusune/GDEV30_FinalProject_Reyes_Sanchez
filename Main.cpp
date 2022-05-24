@@ -48,6 +48,9 @@ GLuint CreateShaderFromSource(const GLuint& shaderType, const std::string& shade
  * @param[in] height New height
  */
 void FramebufferSizeChangedCallback(GLFWwindow* window, int width, int height);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void processInput(GLFWwindow* window);
 
 /**
  * Struct containing data about a vertex
@@ -61,15 +64,19 @@ struct Vertex
 };
 
 //Global Variable Declarations for Rotation and Lighting
-float seconds = 0.0f;
-glm::vec3 c_lightPos(0.0f, 5.0f, 0.0f);
-glm::vec3 camerapos(0.0f, 5.5f, 1.25f);
-float ambientIntensity = 0.2f;
-float diffuseIntensity = 0.6f;
-float specularIntensity = 1.0f;
-float diffuseMatComponent = 0.0f;
-float specularMatComponent = 0.0f;
-float shine = 2.0f;
+glm::vec3 cameraPos = glm::vec3(0.0f, 15.0f, 10.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 10.0f, 0.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+bool firstMouse = true;
+float yaw = -90.0f;
+float pitch = 0.0f;
+float lastX = 800.0f / 2.0f;
+float lastY = 600.0f / 2.0f;
+float fov = 45.0f;
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 
 /**
@@ -116,6 +123,8 @@ int main()
 
 	// Register the callback function that handles when the framebuffer size has changed
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeChangedCallback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 
 	// Tell GLAD to load the OpenGL function pointers
 	if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
@@ -348,13 +357,18 @@ int main()
 	// Render loop
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+
+		processInput(window);
+
 		// Clear the colors in our off-screen framebuffer
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//Transformation "Globals"
-		glm::mat4 PerspectiveProj = glm::perspective(1.57f, 4.0f / 3.0f, 0.1f, 100.0f);
-		glm::mat4 camera = glm::lookAt(glm::vec3(0.0f, 15.0f, 10.0f), glm::vec3(0.0f,10.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
+		glm::mat4 PerspectiveProj = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
+		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		//GLint normalMuniformLocation = glGetUniformLocation(program, "normalM");
@@ -481,9 +495,9 @@ int main()
 		//Right Torii Pillar
 		//Transformations
 		glm::mat4 RTP = glm::mat4(1.0f);
+		RTP = glm::translate(RTP, glm::vec3(-1.0f, -3.5f, 0.125f));
 		RTP = glm::scale(RTP, glm::vec3(0.75f, 6.0f, 0.75f));
-		RTP = glm::translate(RTP, glm::vec3(6.0f, 0.0f, 0.0f));
-		RTP = glm::translate(RTP, glm::vec3(0.625f, -0.575f, 0.125f));
+		RTP = glm::translate(RTP, glm::vec3(8.0f, 0.0f, 0.0f));
 		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
 		//glm::mat4 model1 = mat;
 		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
@@ -511,6 +525,33 @@ int main()
 		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
 
 		// "Unuse" the vertex array object
+		glBindVertexArray(0);
+
+		//Middle Horizontal Pillar
+		glm::mat4 MHP = glm::mat4(1.0f);
+		//MHP = glm::translate(MHP, glm::vec3(-1.0f, -3.5f, 0.125f));
+		//MHP = glm::scale(MHP, glm::vec3(0.75f, 6.0f, 0.75f));
+		//MHP = glm::rotate(MHP, glm::radians(90.0f), glm::vec3(-4.0f, 12.0f, 1.0f));
+
+		MHP = PerspectiveProj * camera * MHP;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(MHP));
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+
 		glBindVertexArray(0);
 
 		// Tell GLFW to swap the screen buffer with the offscreen buffer
@@ -634,9 +675,75 @@ GLuint CreateShaderFromSource(const GLuint& shaderType, const std::string& shade
  * @param[in] width New width
  * @param[in] height New height
  */
+
+void processInput(GLFWwindow *window){
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
+		glfwSetWindowShouldClose(window, true);
+	}
+
+	float cameraSpeed = static_cast<float>(0.005 * deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+		cameraPos += cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
+		cameraPos -= cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;;
+	}
+}
 void FramebufferSizeChangedCallback(GLFWwindow* window, int width, int height)
 {
 	// Whenever the size of the framebuffer changed (due to window resizing, etc.),
 	// update the dimensions of the region to the new size
 	glViewport(0, 0, width, height);
+}
+
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn){
+	float xpos = static_cast<float>(xposIn);
+	float ypos = static_cast<float>(yposIn);
+
+	if (firstMouse){
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos;
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	if (pitch > 89.0f){
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f){
+		pitch = -89.0f;
+	}
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(front);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
+	fov -= (float)yoffset;
+	if (fov < 1.0f){
+		fov = 1.0f;
+	}
+	if (fov > 45.0f){
+		fov = 45.0f;
+	}
 }
