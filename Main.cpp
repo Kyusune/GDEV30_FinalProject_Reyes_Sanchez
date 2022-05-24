@@ -136,7 +136,7 @@ int main()
 	// --- Vertex specification ---
 	
 	// Set up the data for each vertex of the triangle
-	Vertex vertices[24];
+	Vertex vertices[40];
 	//Front Facing Square
 	vertices[0].x = -3.0f;	vertices[0].y = 1.0f;	vertices[0].z = 2.0f;
 	vertices[0].r = 255;	vertices[0].g = 0;		vertices[0].b = 0;
@@ -262,6 +262,91 @@ int main()
 	vertices[23].u = 1.0f;   vertices[23].v = 1.0f;
 	vertices[23].nx = 0.0f;	vertices[23].ny = 0.0f;	vertices[23].nz = -1.0f;
 
+	//Back Panel
+	vertices[24].x = 10.0f;	vertices[24].y = 1.0f;	vertices[24].z = -5.0f;
+	vertices[24].r = 0;		vertices[24].g = 0;		vertices[24].b = 0;
+	vertices[24].u = 0.0f;   vertices[24].v = 0.0f;
+	vertices[24].nx = 0.0f;	vertices[24].ny = 0.0f;	vertices[24].nz = -1.0f;
+
+	vertices[25].x = 10.0f;	vertices[25].y = 15.0f;	vertices[25].z = -5.0f;
+	vertices[25].r = 0;		vertices[25].g = 0;		vertices[25].b = 0;
+	vertices[25].u = 1.0f;   vertices[25].v = 0.0f;
+	vertices[25].nx = 0.0f;	vertices[25].ny = 0.0f;	vertices[25].nz = -1.0f;
+
+	vertices[26].x = -11.0f;	vertices[26].y = 1.0f;	vertices[26].z = -5.0f;
+	vertices[26].r = 0;		vertices[26].g = 0;		vertices[26].b = 255;
+	vertices[26].u = 0.0f;   vertices[26].v = 1.0f;
+	vertices[26].nx = 0.0f;	vertices[26].ny = 0.0f;	vertices[26].nz = -1.0f;
+
+	vertices[27].x = -11.0f;	vertices[27].y = 15.0f;	vertices[27].z = -5.0f;
+	vertices[27].r = 0;		vertices[27].g = 0;		vertices[27].b = 255;
+	vertices[27].u = 1.0f;   vertices[27].v = 1.0f;
+	vertices[27].nx = 0.0f;	vertices[27].ny = 0.0f;	vertices[27].nz = -1.0f;
+
+	//Left Side Panel
+	vertices[28].x = -11.0f;	vertices[28].y = 15.0f;	vertices[28].z = -5.0f;
+	vertices[28].r = 0;		vertices[28].g = 0;		vertices[28].b = 255;
+	vertices[28].u = 0.0f;   vertices[28].v = 0.0f;
+	vertices[28].nx = -1.0f;	vertices[28].ny = 0.0f;	vertices[28].nz = 0.0f;
+
+	vertices[29].x = -11.0f;	vertices[29].y = 1.0f;	vertices[29].z = -5.0f;
+	vertices[29].r = 0;		vertices[29].g = 0;		vertices[29].b = 255;
+	vertices[29].u = 1.0f;   vertices[29].v = 0.0f;
+	vertices[29].nx = -1.0f;	vertices[29].ny = 0.0f;	vertices[29].nz = 0.0f;
+
+	vertices[30].x = -11.0f;	vertices[30].y = 15.0f;	vertices[30].z = 7.0f;
+	vertices[30].r = 0;		vertices[30].g = 0;		vertices[30].b = 255;
+	vertices[30].u = 0.0f;   vertices[30].v = 1.0f;
+	vertices[30].nx = -1.0f;	vertices[30].ny = 0.0f;	vertices[30].nz = 0.0f;
+
+	vertices[31].x = -11.0f;	vertices[31].y = 1.0f;	vertices[31].z = 7.0f;
+	vertices[31].r = 0;		vertices[31].g = 0;		vertices[31].b = 255;
+	vertices[31].u = 1.0f;   vertices[31].v = 1.0f;
+	vertices[31].nx = -1.0f;	vertices[31].ny = 0.0f;	vertices[31].nz = 0.0f;
+
+	//Right Side Panel
+
+	vertices[32].x = 10.0f;	vertices[32].y = 15.0f;	vertices[32].z = -5.0f;
+	vertices[32].r = 0;		vertices[32].g = 0;		vertices[32].b = 255;
+	vertices[32].u = 0.0f;   vertices[32].v = 0.0f;
+	vertices[32].nx = 1.0f;	vertices[32].ny = 0.0f;	vertices[32].nz = 0.0f;
+
+	vertices[33].x = 10.0f;	vertices[33].y = 1.0f;	vertices[33].z = -5.0f;
+	vertices[33].r = 0;		vertices[33].g = 0;		vertices[33].b = 255;
+	vertices[33].u = 1.0f;   vertices[33].v = 0.0f;
+	vertices[33].nx = 1.0f;	vertices[33].ny = 0.0f;	vertices[33].nz = 0.0f;
+
+	vertices[34].x = 10.0f;	vertices[34].y = 15.0f;	vertices[34].z = 7.0f;
+	vertices[34].r = 0;		vertices[34].g = 0;		vertices[34].b = 255;
+	vertices[34].u = 0.0f;   vertices[34].v = 1.0f;
+	vertices[34].nx = 1.0f;	vertices[34].ny = 0.0f;	vertices[34].nz = 0.0f;
+
+	vertices[35].x = 10.0f;	vertices[35].y = 1.0f;	vertices[35].z = 7.0f;
+	vertices[35].r = 0;		vertices[35].g = 0;		vertices[35].b = 255;
+	vertices[35].u = 1.0f;   vertices[35].v = 1.0f;
+	vertices[35].nx = 1.0f;	vertices[35].ny = 0.0f;	vertices[35].nz = 0.0f;
+
+	//Floor Panel
+
+	vertices[36].x = 10.0f;	vertices[36].y = 1.0f;	vertices[36].z = -5.0f;
+	vertices[36].r = 0;		vertices[36].g = 0;		vertices[36].b = 255;
+	vertices[36].u = 0.0f;   vertices[36].v = 0.0f;
+	vertices[36].nx = 0.0f;	vertices[36].ny = 1.0f;	vertices[36].nz = 0.0f;
+
+	vertices[37].x = 10.0f;	vertices[37].y = 1.0f;	vertices[37].z = 7.0f;
+	vertices[37].r = 0;		vertices[37].g = 0;		vertices[37].b = 255;
+	vertices[37].u = 1.0f;   vertices[37].v = 0.0f;
+	vertices[37].nx = 0.0f;	vertices[37].ny = 1.0f;	vertices[37].nz = 0.0f;
+
+	vertices[38].x = -11.0f;	vertices[38].y = 1.0f;	vertices[38].z = -5.0f;
+	vertices[38].r = 0;		vertices[38].g = 0;		vertices[38].b = 255;
+	vertices[38].u = 0.0f;   vertices[38].v = 1.0f;
+	vertices[38].nx = 0.0f;	vertices[38].ny = 1.0f;	vertices[38].nz = 0.0f;
+
+	vertices[39].x = -11.0f;	vertices[39].y = 1.0f;	vertices[39].z = 7.0f;
+	vertices[39].r = 0;		vertices[39].g = 0;		vertices[39].b = 255;
+	vertices[39].u = 1.0f;   vertices[39].v = 1.0f;
+	vertices[39].nx = 0.0f;	vertices[39].ny = 1.0f;	vertices[39].nz = 0.0f;
 
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
@@ -371,35 +456,11 @@ int main()
 		glm::mat4 PerspectiveProj = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
 		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
-		GLint texUniformLocation = glGetUniformLocation(program, "tex");
-		//GLint normalMuniformLocation = glGetUniformLocation(program, "normalM");
-		//GLint modelUniformLocation = glGetUniformLocation(program, "model");
-		//GLint lightPosUniformLocation = glGetUniformLocation(program, "lightPos");
-		//GLint ambientIntensityUniformLocation = glGetUniformLocation(program, "ambientIntensity");
-		//GLint diffuseIntensityUniformLocation = glGetUniformLocation(program, "diffuseIntensity");
-		//GLint specularIntensityUniformLocation = glGetUniformLocation(program, "specularIntensity");
-		//GLint cameraLocation = glGetUniformLocation(program, "camera");
-		//GLint diffMatLocation = glGetUniformLocation(program, "diffMat");
-		//GLint specMatLocation = glGetUniformLocation(program, "specMat");
-		//GLint shineLocation = glGetUniformLocation(program, "shine");
-		//glUniform3f(cameraLocation, camerapos.x, camerapos.y, camerapos.z);
-		//glUniform3f(lightPosUniformLocation, c_lightPos.x, c_lightPos.y, c_lightPos.z);
-		//glUniform1f(ambientIntensityUniformLocation, ambientIntensity);
-		//glUniform1f(diffuseIntensityUniformLocation, diffuseIntensity);
-		//glUniform1f(specularIntensityUniformLocation, specularIntensity);
-		//glUniform1f(diffMatLocation, diffuseMatComponent);
-		//glUniform1f(specMatLocation, specularMatComponent);
-		//glUniform1f(shineLocation, shine);
+
 
 		//Left Torii Base
 		//Transformations
 		glm::mat4 LTB = glm::mat4(1.0f);
-		//mat = glm::scale(mat, glm::vec3(0.5f, 0.5f, 0.5f));
-		//mat = glm::translate(mat, glm::vec3(0.5f, 0.0f, 0.0f));
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
 		LTB = PerspectiveProj * camera * LTB;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LTB));
 
@@ -412,6 +473,7 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
+		GLint texUniformLocation = glGetUniformLocation(program, "tex2");
 		glUniform1i(texUniformLocation, 0);
 
 		// Draw the vertices
@@ -430,10 +492,6 @@ int main()
 		glm::mat4 LTP = glm::mat4(1.0f);
 		LTP = glm::translate(LTP, glm::vec3(-1.0f, -3.5f, 0.125f));
 		LTP = glm::scale(LTP, glm::vec3(0.75f, 6.0f, 0.75f));
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
 		LTP = PerspectiveProj * camera * LTP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LTP));
 
@@ -446,7 +504,8 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
-		glUniform1i(texUniformLocation, 0);
+		GLint texUniformLocation2 = glGetUniformLocation(program, "tex");
+		glUniform1i(texUniformLocation2, 0);
 
 		// Draw the the vertices
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -462,12 +521,7 @@ int main()
 		//Right Torii Base
 		//Transformations
 		glm::mat4 RTB = glm::mat4(1.0f);
-		//mat = glm::scale(mat, glm::vec3(0.5f, 0.5f, 0.5f));
 		RTB = glm::translate(RTB, glm::vec3(6.0f, 0.0f, 0.0f));
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
 		RTB = PerspectiveProj * camera * RTB;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RTB));
 
@@ -499,10 +553,6 @@ int main()
 		RTP = glm::translate(RTP, glm::vec3(-1.0f, -3.5f, 0.125f));
 		RTP = glm::scale(RTP, glm::vec3(0.75f, 6.0f, 0.75f));
 		RTP = glm::translate(RTP, glm::vec3(8.0f, 0.0f, 0.0f));
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
 		RTP = PerspectiveProj * camera * RTP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RTP));
 
@@ -636,6 +686,115 @@ int main()
 		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
 
 		glBindVertexArray(0);
+
+		//Back Panel
+		glm::mat4 BackPanel = glm::mat4(1.0f);
+		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
+		//glm::mat4 model1 = mat;
+		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
+		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		BackPanel = PerspectiveProj * camera * BackPanel;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(BackPanel));
+
+		// Use the shader program that we created
+		glUseProgram(program);
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
+		
+
+		// "Unuse" the vertex array object
+		glBindVertexArray(0);
+
+		//Left Panel
+		glm::mat4 LeftPanel = glm::mat4(1.0f);
+		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
+		//glm::mat4 model1 = mat;
+		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
+		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		LeftPanel = PerspectiveProj * camera * LeftPanel;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LeftPanel));
+
+		// Use the shader program that we created
+		glUseProgram(program);
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
+		
+
+		// "Unuse" the vertex array object
+		glBindVertexArray(0);
+
+		//Right Panel
+		glm::mat4 RightPanel = glm::mat4(1.0f);
+		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
+		//glm::mat4 model1 = mat;
+		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
+		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		RightPanel = PerspectiveProj * camera * RightPanel;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RightPanel));
+
+		// Use the shader program that we created
+		glUseProgram(program);
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
+		
+
+		// "Unuse" the vertex array object
+		glBindVertexArray(0);
+
+		//Floor Panel
+		glm::mat4 FloorPanel = glm::mat4(1.0f);
+		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
+		//glm::mat4 model1 = mat;
+		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
+		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		FloorPanel = PerspectiveProj * camera * FloorPanel;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(FloorPanel));
+
+		// Use the shader program that we created
+		glUseProgram(program);
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
+		
+
+		// "Unuse" the vertex array object
+		glBindVertexArray(0);
+
 
 		// Tell GLFW to swap the screen buffer with the offscreen buffer
 		glfwSwapBuffers(window);
