@@ -78,6 +78,8 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+glm::vec3 ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+
 
 /**
  * @brief Main function
@@ -245,86 +247,86 @@ int main()
 	vertices[20].x = -3.0f;	vertices[20].y = 1.0f;	vertices[20].z = 2.0f;
 	vertices[20].r = 0;		vertices[20].g = 0;		vertices[20].b = 0;
 	vertices[20].u = 0.0f;   vertices[20].v = 0.0f;
-	vertices[20].nx = 0.0f;	vertices[20].ny = 0.0f;	vertices[20].nz = -1.0f;
+	vertices[20].nx = 0.0f;	vertices[20].ny = -1.0f;	vertices[20].nz = 0.0f;
 
 	vertices[21].x = -3.0f;	vertices[21].y = 1.0f;	vertices[21].z = 0.0f;
 	vertices[21].r = 0;		vertices[21].g = 0;		vertices[21].b = 0;
 	vertices[21].u = 1.0f;   vertices[21].v = 0.0f;
-	vertices[21].nx = 0.0f;	vertices[21].ny = 0.0f;	vertices[21].nz = -1.0f;
+	vertices[21].nx = 0.0f;	vertices[21].ny = -1.0f;	vertices[21].nz = 0.0f;
 
 	vertices[22].x = -5.0f;	vertices[22].y = 1.0f;	vertices[22].z = 2.0f;
 	vertices[22].r = 0;		vertices[22].g = 0;		vertices[22].b = 255;
 	vertices[22].u = 0.0f;   vertices[22].v = 1.0f;
-	vertices[22].nx = 0.0f;	vertices[22].ny = 0.0f;	vertices[22].nz = -1.0f;
+	vertices[22].nx = 0.0f;	vertices[22].ny = -1.0f;	vertices[22].nz = 0.0f;
 
 	vertices[23].x = -5.0f;	vertices[23].y = 1.0f;	vertices[23].z = 0.0f;
 	vertices[23].r = 0;		vertices[23].g = 0;		vertices[23].b = 255;
 	vertices[23].u = 1.0f;   vertices[23].v = 1.0f;
-	vertices[23].nx = 0.0f;	vertices[23].ny = 0.0f;	vertices[23].nz = -1.0f;
+	vertices[23].nx = 0.0f;	vertices[23].ny = -1.0f;	vertices[23].nz = 0.0f;
 
 	//Back Panel
 	vertices[24].x = 10.0f;	vertices[24].y = 1.0f;	vertices[24].z = -5.0f;
 	vertices[24].r = 0;		vertices[24].g = 0;		vertices[24].b = 0;
 	vertices[24].u = 0.0f;   vertices[24].v = 0.0f;
-	vertices[24].nx = 0.0f;	vertices[24].ny = 0.0f;	vertices[24].nz = -1.0f;
+	vertices[24].nx = 0.0f;	vertices[24].ny = 0.0f;	vertices[24].nz = 1.0f;
 
 	vertices[25].x = 10.0f;	vertices[25].y = 15.0f;	vertices[25].z = -5.0f;
 	vertices[25].r = 0;		vertices[25].g = 0;		vertices[25].b = 0;
 	vertices[25].u = 1.0f;   vertices[25].v = 0.0f;
-	vertices[25].nx = 0.0f;	vertices[25].ny = 0.0f;	vertices[25].nz = -1.0f;
+	vertices[25].nx = 0.0f;	vertices[25].ny = 0.0f;	vertices[25].nz = 1.0f;
 
 	vertices[26].x = -11.0f;	vertices[26].y = 1.0f;	vertices[26].z = -5.0f;
 	vertices[26].r = 0;		vertices[26].g = 0;		vertices[26].b = 255;
 	vertices[26].u = 0.0f;   vertices[26].v = 1.0f;
-	vertices[26].nx = 0.0f;	vertices[26].ny = 0.0f;	vertices[26].nz = -1.0f;
+	vertices[26].nx = 0.0f;	vertices[26].ny = 0.0f;	vertices[26].nz = 1.0f;
 
 	vertices[27].x = -11.0f;	vertices[27].y = 15.0f;	vertices[27].z = -5.0f;
 	vertices[27].r = 0;		vertices[27].g = 0;		vertices[27].b = 255;
 	vertices[27].u = 1.0f;   vertices[27].v = 1.0f;
-	vertices[27].nx = 0.0f;	vertices[27].ny = 0.0f;	vertices[27].nz = -1.0f;
+	vertices[27].nx = 0.0f;	vertices[27].ny = 0.0f;	vertices[27].nz = 1.0f;
 
 	//Left Side Panel
 	vertices[28].x = -11.0f;	vertices[28].y = 15.0f;	vertices[28].z = -5.0f;
 	vertices[28].r = 0;		vertices[28].g = 0;		vertices[28].b = 255;
 	vertices[28].u = 0.0f;   vertices[28].v = 0.0f;
-	vertices[28].nx = -1.0f;	vertices[28].ny = 0.0f;	vertices[28].nz = 0.0f;
+	vertices[28].nx = 1.0f;	vertices[28].ny = 0.0f;	vertices[28].nz = 0.0f;
 
 	vertices[29].x = -11.0f;	vertices[29].y = 1.0f;	vertices[29].z = -5.0f;
 	vertices[29].r = 0;		vertices[29].g = 0;		vertices[29].b = 255;
 	vertices[29].u = 1.0f;   vertices[29].v = 0.0f;
-	vertices[29].nx = -1.0f;	vertices[29].ny = 0.0f;	vertices[29].nz = 0.0f;
+	vertices[29].nx = 1.0f;	vertices[29].ny = 0.0f;	vertices[29].nz = 0.0f;
 
 	vertices[30].x = -11.0f;	vertices[30].y = 15.0f;	vertices[30].z = 7.0f;
 	vertices[30].r = 0;		vertices[30].g = 0;		vertices[30].b = 255;
 	vertices[30].u = 0.0f;   vertices[30].v = 1.0f;
-	vertices[30].nx = -1.0f;	vertices[30].ny = 0.0f;	vertices[30].nz = 0.0f;
+	vertices[30].nx = 1.0f;	vertices[30].ny = 0.0f;	vertices[30].nz = 0.0f;
 
 	vertices[31].x = -11.0f;	vertices[31].y = 1.0f;	vertices[31].z = 7.0f;
 	vertices[31].r = 0;		vertices[31].g = 0;		vertices[31].b = 255;
 	vertices[31].u = 1.0f;   vertices[31].v = 1.0f;
-	vertices[31].nx = -1.0f;	vertices[31].ny = 0.0f;	vertices[31].nz = 0.0f;
+	vertices[31].nx = 1.0f;	vertices[31].ny = 0.0f;	vertices[31].nz = 0.0f;
 
 	//Right Side Panel
 
 	vertices[32].x = 10.0f;	vertices[32].y = 15.0f;	vertices[32].z = -5.0f;
 	vertices[32].r = 0;		vertices[32].g = 0;		vertices[32].b = 255;
 	vertices[32].u = 0.0f;   vertices[32].v = 0.0f;
-	vertices[32].nx = 1.0f;	vertices[32].ny = 0.0f;	vertices[32].nz = 0.0f;
+	vertices[32].nx = -1.0f;	vertices[32].ny = 0.0f;	vertices[32].nz = 0.0f;
 
 	vertices[33].x = 10.0f;	vertices[33].y = 1.0f;	vertices[33].z = -5.0f;
 	vertices[33].r = 0;		vertices[33].g = 0;		vertices[33].b = 255;
 	vertices[33].u = 1.0f;   vertices[33].v = 0.0f;
-	vertices[33].nx = 1.0f;	vertices[33].ny = 0.0f;	vertices[33].nz = 0.0f;
+	vertices[33].nx = -1.0f;	vertices[33].ny = 0.0f;	vertices[33].nz = 0.0f;
 
 	vertices[34].x = 10.0f;	vertices[34].y = 15.0f;	vertices[34].z = 7.0f;
 	vertices[34].r = 0;		vertices[34].g = 0;		vertices[34].b = 255;
 	vertices[34].u = 0.0f;   vertices[34].v = 1.0f;
-	vertices[34].nx = 1.0f;	vertices[34].ny = 0.0f;	vertices[34].nz = 0.0f;
+	vertices[34].nx = -1.0f;	vertices[34].ny = 0.0f;	vertices[34].nz = 0.0f;
 
 	vertices[35].x = 10.0f;	vertices[35].y = 1.0f;	vertices[35].z = 7.0f;
 	vertices[35].r = 0;		vertices[35].g = 0;		vertices[35].b = 255;
 	vertices[35].u = 1.0f;   vertices[35].v = 1.0f;
-	vertices[35].nx = 1.0f;	vertices[35].ny = 0.0f;	vertices[35].nz = 0.0f;
+	vertices[35].nx = -1.0f;	vertices[35].ny = 0.0f;	vertices[35].nz = 0.0f;
 
 	//Floor Panel
 
@@ -375,8 +377,8 @@ int main()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, u)));
 
 	// Vertex attribute 3 - Normal Vertex
-	//glEnableVertexAttribArray(3);
-	//glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
 
 	glBindVertexArray(0);
 
@@ -457,7 +459,8 @@ int main()
 		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
-
+		GLint ambientUniformLocation = glGetUniformLocation(program, "ambient");
+		glUniform3f(ambientUniformLocation, ambient.x, ambient.y, ambient.z);
 
 		//Left Torii Base
 		//Transformations
