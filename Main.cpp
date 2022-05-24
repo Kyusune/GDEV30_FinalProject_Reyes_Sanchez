@@ -78,7 +78,7 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-glm::vec3 ambient = glm::vec3(0.1f, 0.4f, 0.1f);
+glm::vec3 ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 glm::vec3 diffuse = glm::vec3(0.9f, 0.9f, 0.9f);
 glm::vec3 specular = glm::vec3(0.2f, 0.1f, 0.2f);
 glm::vec3 lightPos = glm::vec3(0.0f, 10.0f, 10.0f);
@@ -291,44 +291,44 @@ int main()
 
 	//Left Side Panel
 	vertices[28].x = -11.0f;	vertices[28].y = 15.0f;	vertices[28].z = -5.0f;
-	vertices[28].r = 0;		vertices[28].g = 0;		vertices[28].b = 255;
+	vertices[28].r = 242;		vertices[28].g = 172;		vertices[28].b = 164;
 	vertices[28].u = 0.0f;   vertices[28].v = 0.0f;
 	vertices[28].nx = 1.0f;	vertices[28].ny = 0.0f;	vertices[28].nz = 0.0f;
 
 	vertices[29].x = -11.0f;	vertices[29].y = 1.0f;	vertices[29].z = -5.0f;
-	vertices[29].r = 0;		vertices[29].g = 0;		vertices[29].b = 255;
+	vertices[29].r = 242;		vertices[29].g = 172;		vertices[29].b = 164;
 	vertices[29].u = 1.0f;   vertices[29].v = 0.0f;
 	vertices[29].nx = 1.0f;	vertices[29].ny = 0.0f;	vertices[29].nz = 0.0f;
 
 	vertices[30].x = -11.0f;	vertices[30].y = 15.0f;	vertices[30].z = 7.0f;
-	vertices[30].r = 0;		vertices[30].g = 0;		vertices[30].b = 255;
+	vertices[30].r = 242;		vertices[30].g = 172;		vertices[30].b = 164;
 	vertices[30].u = 0.0f;   vertices[30].v = 1.0f;
 	vertices[30].nx = 1.0f;	vertices[30].ny = 0.0f;	vertices[30].nz = 0.0f;
 
 	vertices[31].x = -11.0f;	vertices[31].y = 1.0f;	vertices[31].z = 7.0f;
-	vertices[31].r = 0;		vertices[31].g = 0;		vertices[31].b = 255;
+	vertices[31].r = 242;		vertices[31].g = 172;		vertices[31].b = 164;
 	vertices[31].u = 1.0f;   vertices[31].v = 1.0f;
 	vertices[31].nx = 1.0f;	vertices[31].ny = 0.0f;	vertices[31].nz = 0.0f;
 
 	//Right Side Panel
 
 	vertices[32].x = 10.0f;	vertices[32].y = 15.0f;	vertices[32].z = -5.0f;
-	vertices[32].r = 0;		vertices[32].g = 0;		vertices[32].b = 255;
+	vertices[32].r = 242;		vertices[32].g = 172;		vertices[32].b = 164;
 	vertices[32].u = 0.0f;   vertices[32].v = 0.0f;
 	vertices[32].nx = -1.0f;	vertices[32].ny = 0.0f;	vertices[32].nz = 0.0f;
 
 	vertices[33].x = 10.0f;	vertices[33].y = 1.0f;	vertices[33].z = -5.0f;
-	vertices[33].r = 0;		vertices[33].g = 0;		vertices[33].b = 255;
+	vertices[33].r = 242;		vertices[33].g = 172;		vertices[33].b = 164;
 	vertices[33].u = 1.0f;   vertices[33].v = 0.0f;
 	vertices[33].nx = -1.0f;	vertices[33].ny = 0.0f;	vertices[33].nz = 0.0f;
 
 	vertices[34].x = 10.0f;	vertices[34].y = 15.0f;	vertices[34].z = 7.0f;
-	vertices[34].r = 0;		vertices[34].g = 0;		vertices[34].b = 255;
+	vertices[34].r = 242;		vertices[34].g = 172;		vertices[34].b = 164;
 	vertices[34].u = 0.0f;   vertices[34].v = 1.0f;
 	vertices[34].nx = -1.0f;	vertices[34].ny = 0.0f;	vertices[34].nz = 0.0f;
 
 	vertices[35].x = 10.0f;	vertices[35].y = 1.0f;	vertices[35].z = 7.0f;
-	vertices[35].r = 0;		vertices[35].g = 0;		vertices[35].b = 255;
+	vertices[35].r = 242;		vertices[35].g = 172;		vertices[35].b = 164;
 	vertices[35].u = 1.0f;   vertices[35].v = 1.0f;
 	vertices[35].nx = -1.0f;	vertices[35].ny = 0.0f;	vertices[35].nz = 0.0f;
 
@@ -397,52 +397,63 @@ int main()
 
 	// Create a variable that will contain the ID for our texture,
 	// and use glGenTextures() to generate the texture itself
-	GLuint tex;
-	glGenTextures(1, &tex);
+	GLuint tex[5];
+	glGenTextures(5, tex);
 
 	// --- Load our image using stb_image ---
 
-	// Im image-space (pixels), (0, 0) is the upper-left corner of the image
-	// However, in u-v coordinates, (0, 0) is the lower-left corner of the image
-	// This means that the image will appear upside-down when we use the image data as is
-	// This function tells stbi to flip the image vertically so that it is not upside-down when we use it
 	stbi_set_flip_vertically_on_load(true);
 
-	// 'imageWidth' and imageHeight will contain the width and height of the loaded image respectively
 	int imageWidth, imageHeight, numChannels;
 
-	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("toriigate_redwood.jpg", &imageWidth, &imageHeight, &numChannels, 0);
 
-	// Make sure that we actually loaded the image before uploading the data to the GPU
-	if (imageData != nullptr)
-	{
-		// Our texture is 2D, so we bind our texture to the GL_TEXTURE_2D target
-		glBindTexture(GL_TEXTURE_2D, tex);
+	unsigned char* imageData;
 
-		// Set the filtering methods for magnification and minification
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-		// Set the wrapping method for the s-axis (x-axis) and t-axis (y-axis)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glBindTexture(GL_TEXTURE_2D, tex[0]);
+	imageData = stbi_load("toriigate_redwood.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	stbi_image_free(imageData);
 
-		// Upload the image data to GPU memory
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	glBindTexture(GL_TEXTURE_2D, tex[1]);
+	imageData = stbi_load("toriigate_base2.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	stbi_image_free(imageData);
 
-		// If we set minification to use mipmaps, we can tell OpenGL to generate the mipmaps for us
-		//glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, tex[2]);
+	imageData = stbi_load("backpanel.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	stbi_image_free(imageData);
 
-		// Once we have copied the data over to the GPU, we can delete
-		// the data on the CPU side, since we won't be using it anymore
-		stbi_image_free(imageData);
-		imageData = nullptr;
-	}
-	else
-	{
-		std::cerr << "Failed to load image" << std::endl;
-	}
+	glBindTexture(GL_TEXTURE_2D, tex[3]);
+	imageData = stbi_load("floor.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	stbi_image_free(imageData);
+	
+	glBindTexture(GL_TEXTURE_2D, tex[4]);
+	imageData = stbi_load("sidepanel.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+	stbi_image_free(imageData);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -462,7 +473,7 @@ int main()
 		glm::mat4 PerspectiveProj = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
 		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
-		GLint texUniformLocation = glGetUniformLocation(program, "tex");
+		GLint texUniformLocation = glGetUniformLocation(program, "texture_redwood");
 		GLint ambientUniformLocation = glGetUniformLocation(program, "ambient");
 		GLint diffuseUniformLocation = glGetUniformLocation(program, "diffuse");
 		GLint specularUniformLocation = glGetUniformLocation(program, "specular");
@@ -496,10 +507,10 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[1]);
 
 		glUniform1i(texUniformLocation, 0);
-
+		
 		// Draw the vertices
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
@@ -530,7 +541,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -563,7 +574,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[1]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -598,7 +609,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -629,7 +640,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -659,7 +670,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -689,7 +700,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -719,7 +730,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -749,7 +760,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[2]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -776,7 +787,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[4]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -803,7 +814,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[4]);
 
 		glUniform1i(texUniformLocation, 0);
 
@@ -830,7 +841,7 @@ int main()
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
+		glBindTexture(GL_TEXTURE_2D, tex[3]);
 
 		glUniform1i(texUniformLocation, 0);
 
