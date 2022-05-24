@@ -78,7 +78,9 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-glm::vec3 ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+glm::vec3 ambient = glm::vec3(0.1f, 0.4f, 0.1f);
+glm::vec3 diffuse = glm::vec3(0.9f, 0.9f, 0.9f);
+glm::vec3 lightPos = glm::vec3(10.0f, 0.0f, 15.0f);
 
 
 /**
@@ -460,11 +462,21 @@ int main()
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		GLint ambientUniformLocation = glGetUniformLocation(program, "ambient");
+		GLint diffuseUniformLocation = glGetUniformLocation(program, "diffuse");
+		GLint lightUniformLocation = glGetUniformLocation(program, "lightPos");
+		GLint modelUniformLocation = glGetUniformLocation(program, "model");
+		GLint normalUniformLocation = glGetUniformLocation(program, "norm");
+		glUniform3f(lightUniformLocation, lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(ambientUniformLocation, ambient.x, ambient.y, ambient.z);
+		glUniform3f(diffuseUniformLocation, diffuse.x, diffuse.y, diffuse.z);
+		
 
 		//Left Torii Base
 		//Transformations
 		glm::mat4 LTB = glm::mat4(1.0f);
+		glm::mat3 normalLTB = glm::transpose(glm::inverse(glm::mat3(LTB)));
+		glm::mat4 modelLTB = LTB;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelLTB));
 		LTB = PerspectiveProj * camera * LTB;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LTB));
 
@@ -495,6 +507,10 @@ int main()
 		glm::mat4 LTP = glm::mat4(1.0f);
 		LTP = glm::translate(LTP, glm::vec3(-1.0f, -3.5f, 0.125f));
 		LTP = glm::scale(LTP, glm::vec3(0.75f, 6.0f, 0.75f));
+		glm::mat3 normalLTP = glm::transpose(glm::inverse(glm::mat3(LTP)));
+		glm::mat4 modelLTP = LTP;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelLTP));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalLTP));
 		LTP = PerspectiveProj * camera * LTP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LTP));
 
@@ -524,6 +540,10 @@ int main()
 		//Transformations
 		glm::mat4 RTB = glm::mat4(1.0f);
 		RTB = glm::translate(RTB, glm::vec3(6.0f, 0.0f, 0.0f));
+		glm::mat3 normalRTB = glm::transpose(glm::inverse(glm::mat3(RTB)));
+		glm::mat4 modelRTB = RTB;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelRTB));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalRTB));
 		RTB = PerspectiveProj * camera * RTB;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RTB));
 
@@ -555,6 +575,10 @@ int main()
 		RTP = glm::translate(RTP, glm::vec3(-1.0f, -3.5f, 0.125f));
 		RTP = glm::scale(RTP, glm::vec3(0.75f, 6.0f, 0.75f));
 		RTP = glm::translate(RTP, glm::vec3(8.0f, 0.0f, 0.0f));
+		glm::mat3 normalRTP = glm::transpose(glm::inverse(glm::mat3(RTP)));
+		glm::mat4 modelRTP = RTP;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelRTP));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalRTP));
 		RTP = PerspectiveProj * camera * RTP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RTP));
 
@@ -585,8 +609,10 @@ int main()
 		MHP = glm::translate(MHP, glm::vec3(11.0f, 12.5f, 0.135f));
 		MHP = glm::rotate(MHP, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		MHP = glm::scale(MHP, glm::vec3(0.3f, 6.0f, 0.7f));
-		
-
+		glm::mat3 normalMHP = glm::transpose(glm::inverse(glm::mat3(MHP)));
+		glm::mat4 modelMHP = MHP;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelMHP));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalMHP));
 		MHP = PerspectiveProj * camera * MHP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(MHP));
 
@@ -613,7 +639,10 @@ int main()
 		MTP = glm::translate(MTP, glm::vec3(11.0f, 15.999f, 0.135f));
 		MTP = glm::rotate(MTP, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		MTP = glm::scale(MTP, glm::vec3(0.3f, 6.0f, 0.7f));
-
+		glm::mat3 normalMTP = glm::transpose(glm::inverse(glm::mat3(MTP)));
+		glm::mat4 modelMTP = MTP;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelMTP));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalMTP));
 		MTP = PerspectiveProj * camera * MTP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(MTP));
 
@@ -640,7 +669,10 @@ int main()
 		LRW = glm::translate(LRW, glm::vec3(-5.65f, 15.699f, 0.136f));
 		LRW = glm::rotate(LRW, glm::radians(75.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		LRW = glm::scale(LRW, glm::vec3(0.3f, 1.0f, 0.69f));
-
+		glm::mat3 normalLRW = glm::transpose(glm::inverse(glm::mat3(LRW)));
+		glm::mat4 modelLRW = LRW;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelLRW));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalLRW));
 		LRW = PerspectiveProj * camera * LRW;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LRW));
 
@@ -670,7 +702,10 @@ int main()
 
 		RRW = PerspectiveProj * camera * RRW;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RRW));
-
+		glm::mat3 normalRRW = glm::transpose(glm::inverse(glm::mat3(RRW)));
+		glm::mat4 modelRRW = RRW;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelRRW));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalRRW));
 		// Use the vertex array object that we created
 		glBindVertexArray(vao);
 
@@ -691,10 +726,10 @@ int main()
 
 		//Back Panel
 		glm::mat4 BackPanel = glm::mat4(1.0f);
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		glm::mat3 normalBackPanel = glm::transpose(glm::inverse(glm::mat3(BackPanel)));
+		glm::mat4 modelBackPanel = BackPanel;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelBackPanel));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalBackPanel));
 		BackPanel = PerspectiveProj * camera * BackPanel;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(BackPanel));
 
@@ -718,10 +753,10 @@ int main()
 
 		//Left Panel
 		glm::mat4 LeftPanel = glm::mat4(1.0f);
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		glm::mat3 normalLeftPanel = glm::transpose(glm::inverse(glm::mat3(LeftPanel)));
+		glm::mat4 modelLeftPanel = LeftPanel;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelLeftPanel));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalLeftPanel));
 		LeftPanel = PerspectiveProj * camera * LeftPanel;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LeftPanel));
 
@@ -745,10 +780,10 @@ int main()
 
 		//Right Panel
 		glm::mat4 RightPanel = glm::mat4(1.0f);
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		glm::mat3 normalRightPanel = glm::transpose(glm::inverse(glm::mat3(RightPanel)));
+		glm::mat4 modelRightPanel = RightPanel;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelRightPanel));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalRightPanel));
 		RightPanel = PerspectiveProj * camera * RightPanel;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RightPanel));
 
@@ -772,10 +807,10 @@ int main()
 
 		//Floor Panel
 		glm::mat4 FloorPanel = glm::mat4(1.0f);
-		//glm::mat3 normalM1 = glm::transpose(glm::inverse(glm::mat3(mat)));
-		//glm::mat4 model1 = mat;
-		//glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(model1));
-		//glUniformMatrix3fv(normalMuniformLocation, 1 , GL_TRUE, glm::value_ptr(normalM1));
+		glm::mat3 normalFloorPanel = glm::transpose(glm::inverse(glm::mat3(FloorPanel)));
+		glm::mat4 modelFloorPanel = FloorPanel;
+		glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(modelFloorPanel));
+		glUniformMatrix3fv(normalUniformLocation, 1 , GL_TRUE, glm::value_ptr(normalFloorPanel));
 		FloorPanel = PerspectiveProj * camera * FloorPanel;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(FloorPanel));
 
