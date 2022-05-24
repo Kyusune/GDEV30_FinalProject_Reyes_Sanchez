@@ -262,6 +262,7 @@ int main()
 	vertices[23].u = 1.0f;   vertices[23].v = 1.0f;
 	vertices[23].nx = 0.0f;	vertices[23].ny = 0.0f;	vertices[23].nz = -1.0f;
 
+
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -529,12 +530,94 @@ int main()
 
 		//Middle Horizontal Pillar
 		glm::mat4 MHP = glm::mat4(1.0f);
-		//MHP = glm::translate(MHP, glm::vec3(-1.0f, -3.5f, 0.125f));
-		//MHP = glm::scale(MHP, glm::vec3(0.75f, 6.0f, 0.75f));
-		//MHP = glm::rotate(MHP, glm::radians(90.0f), glm::vec3(-4.0f, 12.0f, 1.0f));
+		MHP = glm::translate(MHP, glm::vec3(11.0f, 12.5f, 0.135f));
+		MHP = glm::rotate(MHP, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		MHP = glm::scale(MHP, glm::vec3(0.3f, 6.0f, 0.7f));
+		
 
 		MHP = PerspectiveProj * camera * MHP;
     	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(MHP));
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+
+		glBindVertexArray(0);
+
+		//Middle Top Pillar
+		glm::mat4 MTP = glm::mat4(1.0f);
+		MTP = glm::translate(MTP, glm::vec3(11.0f, 15.999f, 0.135f));
+		MTP = glm::rotate(MTP, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		MTP = glm::scale(MTP, glm::vec3(0.3f, 6.0f, 0.7f));
+
+		MTP = PerspectiveProj * camera * MTP;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(MTP));
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+
+		glBindVertexArray(0);
+
+		//Left Roof Wing
+		glm::mat4 LRW = glm::mat4(1.0f);
+		LRW = glm::translate(LRW, glm::vec3(-5.65f, 15.699f, 0.136f));
+		LRW = glm::rotate(LRW, glm::radians(75.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		LRW = glm::scale(LRW, glm::vec3(0.3f, 1.0f, 0.69f));
+
+		LRW = PerspectiveProj * camera * LRW;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(LRW));
+
+		// Use the vertex array object that we created
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		glUniform1i(texUniformLocation, 0);
+
+		// Draw the the vertices
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+
+		glBindVertexArray(0);
+
+		//Right Roof Wing
+		glm::mat4 RRW = glm::mat4(1.0f);
+		RRW = glm::translate(RRW, glm::vec3(7.52f, 16.735f, 0.135f));
+		RRW = glm::rotate(RRW, glm::radians(105.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		RRW = glm::scale(RRW, glm::vec3(0.3f, 1.0f, 0.69f));
+
+		RRW = PerspectiveProj * camera * RRW;
+    	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(RRW));
 
 		// Use the vertex array object that we created
 		glBindVertexArray(vao);
