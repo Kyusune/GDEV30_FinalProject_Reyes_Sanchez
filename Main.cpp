@@ -406,7 +406,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("YaeMiko.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("toriigate_redwood.jpg", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -456,6 +456,7 @@ int main()
 		glm::mat4 PerspectiveProj = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
 		glm::mat4 camera = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		GLint uniformLocation = glGetUniformLocation(program, "mvp");
+		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 
 
 		//Left Torii Base
@@ -473,7 +474,6 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
-		GLint texUniformLocation = glGetUniformLocation(program, "tex2");
 		glUniform1i(texUniformLocation, 0);
 
 		// Draw the vertices
@@ -504,8 +504,7 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
 
-		GLint texUniformLocation2 = glGetUniformLocation(program, "tex");
-		glUniform1i(texUniformLocation2, 0);
+		glUniform1i(texUniformLocation, 0);
 
 		// Draw the the vertices
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
