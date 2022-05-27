@@ -78,11 +78,22 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+// Global Light Specs
 glm::vec3 ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 glm::vec3 diffuse = glm::vec3(0.9f, 0.9f, 0.9f);
 glm::vec3 specular = glm::vec3(0.2f, 0.1f, 0.2f);
 glm::vec3 lightPos = glm::vec3(0.0f, 10.0f, 10.0f);
 glm::vec3 specComp = glm::vec3(0.9f, 0.0f, 0.0f);
+
+// Candle Spotlight *change to orange color*
+glm::vec3 ambientSpot = glm::vec3(1.0f, 0.65f, 0.0f);
+glm::vec3 diffuseSpot = glm::vec3(0.9f, 0.9f, 0.9f);
+glm::vec3 specularSpot = glm::vec3(0.2f, 0.1f, 0.2f);
+glm::vec3 lightPosSpot = glm::vec3(-1.0f, 0.0f, -3.5f);
+glm::vec3 specCompSpot = glm::vec3(0.9f, 0.0f, 0.0f);
+float constantSpot = 1.0f;
+float linearSpot = 0.09f;
+float quadraticSpot = 0.032f;
 
 
 /**
@@ -465,8 +476,8 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 
 		lightPos.x = 0;
-		lightPos.y = sin(glfwGetTime()) * 15.0f;
-		lightPos.z = cos(glfwGetTime()) * 15.0f;
+		lightPos.y = sin(glfwGetTime()) * 20.0f;
+		lightPos.z = cos(glfwGetTime()) * 20.0f;
 
 		processInput(window);
 
@@ -493,8 +504,23 @@ int main()
 		glUniform3f(specularUniformLocation, specular.x, specular.y, specular.z);
 		glUniform3f(viewUniformLocation, cameraPos.x, cameraPos.y, cameraPos.z);
 		glUniform3f(specCompUniformLocation, specComp.x, specComp.y, specComp.z);
-		
-		
+		//Spotlight Candle
+		GLint ambientSpotUniformLocation = glGetUniformLocation(program, "ambientSpot");
+		GLint diffuseSpotUniformLocation = glGetUniformLocation(program, "diffuseSpot");
+		GLint specularSpotUniformLocation = glGetUniformLocation(program, "specularSpot");
+		GLint lightSpotUniformLocation = glGetUniformLocation(program, "lightPosSpot");
+		GLint specCompSpotUniformLocation = glGetUniformLocation(program, "specCompSpot");
+		GLint constantSpotUniformLocation = glGetUniformLocation(program, "constantSpot");
+		GLint linearSpotUniformLocation = glGetUniformLocation(program, "linearSpot");
+		GLint quadraticSpotUniformLocation = glGetUniformLocation(program, "quadraticSpot");
+		glUniform3f(lightSpotUniformLocation, lightPosSpot.x, lightPosSpot.y, lightPosSpot.z);
+		glUniform3f(ambientSpotUniformLocation, ambientSpot.x, ambientSpot.y, ambientSpot.z);
+		glUniform3f(diffuseSpotUniformLocation, diffuseSpot.x, diffuseSpot.y, diffuseSpot.z);
+		glUniform3f(specularSpotUniformLocation, specularSpot.x, specularSpot.y, specularSpot.z);
+		glUniform3f(specCompSpotUniformLocation, specCompSpot.x, specCompSpot.y, specCompSpot.z);
+		glUniform1f(constantSpotUniformLocation, constantSpot);
+		glUniform1f(linearSpotUniformLocation, linearSpot);
+		glUniform1f(quadraticSpotUniformLocation, quadraticSpot);
 
 		//Left Torii Base
 		//Transformations
