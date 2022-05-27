@@ -127,6 +127,7 @@ int main()
 	// Tell GLFW to use the OpenGL context that was assigned to the window that we just created
 	glfwMakeContextCurrent(window);
 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	// Register the callback function that handles when the framebuffer size has changed
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeChangedCallback);
 	glfwSetCursorPosCallback(window, mouse_callback);
